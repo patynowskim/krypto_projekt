@@ -1,0 +1,24 @@
+menu "Satlink"
+
+    choice SATLINK_ROLE
+        prompt "Default node role"
+        default SATLINK_ROLE_CUBESAT
+        config SATLINK_ROLE_CUBESAT
+            bool "CubeSat (TX telemetry, RX telecommands)"
+        config SATLINK_ROLE_GCS
+            bool "Ground station (TX telecommands, RX telemetry)"
+    endchoice
+
+    config SATLINK_WIFI_CHANNEL
+        int "ESP-NOW Wi-Fi channel"
+        range 1 13
+        default 1
+        help
+            Both nodes must use the same channel. No AP association is required.
+
+    config SATLINK_TM_INTERVAL_MS
+        int "Housekeeping telemetry interval (ms), 0 = off"
+        range 0 60000
+        default 1000
+
+endmenu
